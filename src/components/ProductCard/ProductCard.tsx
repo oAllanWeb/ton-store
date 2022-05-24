@@ -10,6 +10,7 @@ import {
 } from 'native-base';
 import {ProductType} from '../../types/ProductType';
 import React from 'react';
+import ToMoney from '../../utils/ToMoney';
 
 type ProductCardProps = {
   product: ProductType;
@@ -77,7 +78,7 @@ function ProductCard(props: ProductCardProps) {
                   color: 'warmGray.200',
                 }}
                 fontWeight="700">
-                {product.price}
+                {ToMoney(product.price)}
               </Text>
             </HStack>
           </HStack>

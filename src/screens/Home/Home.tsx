@@ -1,7 +1,8 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {ScrollView, Text, Flex} from 'native-base';
+import {ScrollView, Flex} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {ProductCard} from '../../components';
+import Loading from '../../components/Loading/Loading';
 import httpClient from '../../infrastructure/httpClient';
 import {ProductType} from '../../types/ProductType';
 import {RootStackParamList} from '../../types/RootStackParamList';
@@ -24,7 +25,7 @@ function Home({navigation}: Props) {
   });
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <Loading />;
   }
 
   return (

@@ -6,6 +6,7 @@ export type CartContextProps = {
   cartCount: number;
   addToCart(item: ProductType): void;
   removeFromCart(index: number): void;
+  amountTotal: number;
 };
 
 export default createContext<CartContextProps | null>(null);
