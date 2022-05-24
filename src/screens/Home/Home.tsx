@@ -4,11 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {ProductCard} from '../../components';
 import httpClient from '../../infrastructure/httpClient';
 import {ProductType} from '../../types/ProductType';
-
-type RootStackParamList = {
-  Home: undefined;
-  Details: {productId: Number};
-};
+import {RootStackParamList} from '../../types/RootStackParamList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
