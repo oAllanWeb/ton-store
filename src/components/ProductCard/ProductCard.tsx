@@ -6,9 +6,11 @@ import {
   Stack,
   Text,
   Image,
+  Pressable,
 } from 'native-base';
 import {ProductType} from '../../types/ProductType';
 import React from 'react';
+
 type ProductCardProps = {
   product: ProductType;
   onPress: () => void;
@@ -18,13 +20,14 @@ function ProductCard(props: ProductCardProps) {
   const {product, onPress} = props;
   return (
     <Box w="1/2" p="1" key={product.id}>
-      <Box
-        onTouchStart={() => onPress()}
+      <Pressable
+        onPress={() => onPress()}
         maxW="80"
         rounded="lg"
         overflow="hidden"
         borderColor="coolGray.200"
         borderWidth="1"
+        testID="parssed-product-card"
         _dark={{
           borderColor: 'coolGray.600',
           backgroundColor: 'gray.700',
@@ -79,7 +82,7 @@ function ProductCard(props: ProductCardProps) {
             </HStack>
           </HStack>
         </Stack>
-      </Box>
+      </Pressable>
     </Box>
   );
 }

@@ -1,7 +1,7 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ScrollView, Text, Flex} from 'native-base';
 import React, {useEffect, useState} from 'react';
-import ProductCard from '../../components/ProductCard/ProductCard';
+import {ProductCard} from '../../components';
 import httpClient from '../../infrastructure/httpClient';
 import {ProductType} from '../../types/ProductType';
 
@@ -41,6 +41,7 @@ function Home({navigation}: Props) {
         wrap="wrap">
         {products.map(product => (
           <ProductCard
+            key={product.id}
             product={product}
             onPress={() =>
               navigation.navigate('Details', {productId: product.id})

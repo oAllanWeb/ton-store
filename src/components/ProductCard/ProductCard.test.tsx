@@ -1,87 +1,41 @@
-import {
-  AspectRatio,
-  Box,
-  Heading,
-  HStack,
-  Stack,
-  Text,
-  Image,
-} from 'native-base';
-import {ProductType} from '../../types/ProductType';
 import React from 'react';
-type ProductCardProps = {
-  product: ProductType;
-  onPress: () => void;
-};
+import {render, fireEvent} from '@testing-library/react-native';
+import {ProductType} from '../../types/ProductType';
+import ProductCard from './ProductCard';
+import ProviderWrapper from '../../utils/ProviderWrapper';
 
-function ProductCard(props: ProductCardProps) {
-  const {product, onPress} = props;
-  return (
-    <Box w="1/2" p="1" key={product.id}>
-      <Box
-        onTouchStart={() => onPress()}
-        maxW="80"
-        rounded="lg"
-        overflow="hidden"
-        borderColor="coolGray.200"
-        borderWidth="1"
-        _dark={{
-          borderColor: 'coolGray.600',
-          backgroundColor: 'gray.700',
-        }}
-        _web={{
-          shadow: 2,
-          borderWidth: 0,
-        }}
-        _light={{
-          backgroundColor: 'gray.50',
-        }}>
-        <Box>
-          <AspectRatio w="100%" ratio={3 / 4}>
-            <Image
-              source={{
-                uri: product.image,
-              }}
-              width="auto"
-              alt="image"
-            />
-          </AspectRatio>
-        </Box>
-        <Stack p="4" space={3}>
-          <Stack space={2}>
-            <Heading size="md" ml="-1">
-              {product.title.substring(0, 20)}
-            </Heading>
-            <Text
-              fontSize="xs"
-              _light={{
-                color: 'gray.500',
-              }}
-              _dark={{
-                color: 'gray.400',
-              }}
-              fontWeight="500"
-              ml="-0.5"
-              mt="-1">
-              {product.category}
-            </Text>
-          </Stack>
-          <HStack alignItems="center" space={4} justifyContent="space-between">
-            <HStack alignItems="center">
-              <Text
-                color="green.500"
-                _dark={{
-                  color: 'warmGray.200',
-                }}
-                fontWeight="700">
-                {product.price}
-              </Text>
-            </HStack>
-          </HStack>
-        </Stack>
-      </Box>
-    </Box>
-  );
-}
+describe('Testing product card', () => {
+  const mockProduct = {
+    id: 1,
+    title: 'produto teste',
+    price: 109.95,
+    description:
+      'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
+    category: "men's clothing",
+    image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+    rating: {
+      rate: 3.9,
+      count: 120,
+    },
+  } as ProductType;
+  const mockFunction = jest.fn();
+  it('render product card', () => {
+    const {getByText} = render(
+      <ProviderWrapper>
+        <ProductCard product={mockProduct} onPress={mockFunction} />
+      </ProviderWrapper>,
+    );
 
-export default ProductCard;
+    expect(getByText(mockProduct.title)).toBeTruthy();
+  });
+  it('product card click', () => {
+    const {getByTestId} = render(
+      <ProviderWrapper>
+        <ProductCard product={mockProduct} onPress={mockFunction} />
+      </ProviderWrapper>,
+    );
+
+    fireEvent.press(getByTestId('parssed-product-card'));
+    expect(mockFunction).toHaveBeenCalled();
+  });
+});

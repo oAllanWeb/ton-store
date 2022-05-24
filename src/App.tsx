@@ -8,16 +8,17 @@
  * @format
  */
 
-import React from 'react';
-import {NativeBaseProvider} from 'native-base';
+import React, {ReactNode} from 'react';
+import {Icon, IconButton, NativeBaseProvider} from 'native-base';
 import {NavigationContainer} from '@react-navigation/native';
 import Home from './screens/Home/Home';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Details from './screens/Details/Details';
+import {Entypo} from '@expo/vector-icons';
 
 const Stack = createNativeStackNavigator();
 
-const App = () => {
+const App = (): ReactNode => {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
@@ -34,6 +35,9 @@ const App = () => {
               headerTitleStyle: {
                 fontWeight: 'bold',
               },
+              headerRight: () => (
+                <IconButton icon={<Icon as={Entypo} name="shopping-cart" />} />
+              ),
             }}
           />
           <Stack.Screen name="Details" component={Details} />
